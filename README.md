@@ -14,6 +14,7 @@
 - [Tech Stack](#tech-stack)
 - [System Architecture](#system-architecture)
 - [Project Structure](#project-structure)
+- [Development Setup](#development-setup)
 - [Development Roadmap](#development-roadmap)
 - [Current Status](#current-status)
 - [Contributors](#contributors)
@@ -89,7 +90,7 @@ Condition: Is the user's plan "Pro"?
 
 ## Planned Features
 
-> **Note:** No application code has been written yet. All items below are planned.
+> **Note:** The repository currently contains the Vite starter frontend and a minimal Express health-check API. Product features below are still planned.
 
 ### Authentication & Authorization
 - [ ] User registration and login
@@ -193,37 +194,77 @@ graph TD
 
 ## Project Structure
 
-> Provisional layout — will evolve as development progresses.
-
 ```
 flowforge/
-├── client/                    # React frontend
-│   └── src/
-│       ├── api/               # API client functions
-│       ├── components/        # Reusable UI components
-│       ├── pages/             # Route-level pages
-│       ├── context/           # React context providers
-│       ├── hooks/             # Custom hooks
-│       └── utils/
-│
-├── server/                    # Node.js / Express backend
-│   ├── config/                # DB, Redis, env config
-│   ├── controllers/           # Route handlers
-│   ├── middleware/            # Auth, validation, error handling
-│   ├── models/                # Database query functions
-│   ├── routes/                # Express route definitions
-│   ├── services/              # Business logic
-│   ├── workers/               # BullMQ background workers
-│   ├── queues/                # Queue definitions
-│   ├── triggers/              # Trigger handlers
-│   ├── actions/               # Action handlers
-│   └── utils/
-│
-├── .env.example
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   │   ├── common/
+│   │   │   ├── layout/
+│   │   │   └── workflows/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   │   └── api/
+│   │   ├── context/
+│   │   ├── utils/
+│   │   ├── constants/
+│   │   ├── styles/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── repositories/
+│   │   ├── middleware/
+│   │   ├── validators/
+│   │   ├── models/
+│   │   ├── modules/
+│   │   ├── utils/
+│   │   └── app.js
+│   ├── tests/
+│   ├── package.json
+│   └── .env.example
+├── docs/
 ├── .gitignore
 ├── package.json
 └── README.md
 ```
+
+## Development Setup
+
+Use Node.js and npm. Open separate terminals to run the two applications.
+
+### Frontend
+
+```sh
+cd frontend
+npm install
+npm run dev
+```
+
+The Vite development server prints its local URL when it starts. The existing React starter screen is intentionally unchanged.
+
+### Backend
+
+```sh
+cd backend
+npm install
+npm start
+```
+
+The API listens on port `3000` by default. Its health check is available at `http://localhost:3000/api/health` and returns `{"status":"ok"}`. Set the `PORT` environment variable to use a different port.
+
+From the repository root, the equivalent commands are `npm run dev:frontend` and `npm run dev:backend`.
 
 ---
 
@@ -282,23 +323,23 @@ flowforge/
 
 ## Current Status
 
-> **Stage: Planning / Initial Development**
+> **Stage: Initial Development**
 
-The repository has been created and the README written. No application code exists yet.
+The existing Vite starter is in place, along with a minimal Express API scaffold and a health-check endpoint. Product functionality remains on the roadmap.
 
 | Area | Status |
 |---|---|
 | Architecture design | Planned |
 | Database schema | Not started |
-| Backend API | Not started |
+| Backend API scaffold | Health check available |
 | Authentication | Not started |
 | Workflow engine | Not started |
 | Background workers | Not started |
-| Frontend | Not started |
+| Frontend | Vite / React starter in place |
 | Real-time layer | Not started |
 | Deployment | Not started |
 
-Setup and environment variable documentation will be added once initial development begins.
+The backend reads `PORT` from the environment and defaults to `3000`; see `backend/.env.example` for the local setting.
 
 ---
 
